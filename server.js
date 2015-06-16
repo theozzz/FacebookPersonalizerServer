@@ -106,6 +106,8 @@ var SampleApp = function() {
         };
 
         self.routes['/test'] = function(req, res) {
+            var test = req['theo'];
+            console.log(test);
             res.setHeader('Content-Type', 'text/html');
             res.send('<b> Hello World from Server </b>');
         };
