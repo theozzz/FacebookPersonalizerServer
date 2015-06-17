@@ -106,10 +106,9 @@ var SampleApp = function() {
         };
 
         self.routes['/test'] = function(req, res) {
-            var test = req['theo'];
-            var test2 = req.params.theo;
-            console.log(test);
-            console.log(test2);
+            console.log('in test');
+            console.log(req);
+            console.log(res);
             res.setHeader('Content-Type', 'text/html');
             res.send('<b> Hello World from Server </b>');
         };
