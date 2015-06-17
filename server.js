@@ -107,7 +107,7 @@ var SampleApp = function() {
             var body = req.body;
             var method = req.method;
             var query = req.query;
-            console.log(body + " " + method + " query");
+            console.log(body + " " + method +  query);
             res.setHeader('Content-Type', 'text/html');
             res.send('<b> Hello World from Server </b>');
         };
