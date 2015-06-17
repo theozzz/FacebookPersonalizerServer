@@ -3,6 +3,7 @@
 var express = require('express');
 var fs      = require('fs');
 var url     = require('url');
+var http    = require('http');
 
 var ip_address = process.env.OPENSHIFT_NODEJS_IP;
 var port       = process.env.OPENSHIFT_NODEJS_PORT || 8080;
