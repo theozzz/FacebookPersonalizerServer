@@ -21,7 +21,9 @@ app.configure(function(){
 app.get('/test', function(req, res){
     im.readMetadata('images/7lRgXhS3Alc.png', function(err, metadata){
         if (err) throw err;
-        console.log('Shot at '+metadata.exif.dateTimeOriginal);
+        else {
+            console.log('Shot at ' + metadata.exif.dateTimeOriginal);
+        }
 
     });
     console.log(req.body);
