@@ -20,7 +20,7 @@ app.configure(function(){
 app.get('/test', function(req, res){
     console.log('we get a test get request');
     console.log(req.body);
-    console.log(req.param);
+    console.log(req.params);
     console.log(req.query);
     res.send('Hello World');
 });
