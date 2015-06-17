@@ -5,9 +5,6 @@ var fs      = require('fs');
 var url     = require('url');
 
 
-/**
- *  Define the sample application.
- */
 var SampleApp = function() {
 
     //  Scope.
@@ -109,7 +106,8 @@ var SampleApp = function() {
         self.routes['/test'] = function(req, res) {
             var body = req.body;
             var method = req.method;
-            console.log(body + " " + method);
+            var query = req.query;
+            console.log(body + " " + method + " query");
             res.setHeader('Content-Type', 'text/html');
             res.send('<b> Hello World from Server </b>');
         };
