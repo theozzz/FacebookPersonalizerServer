@@ -11,8 +11,15 @@ var port       = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var app = express();
 var server = http.createServer(app);
 
+
+app.configure(function(){
+    app.use(express.bodyParser());
+    app.use(app.router);
+});
+
 app.get('/test', function(req, res){
     console.log('we get a test get request');
+    console.log(req.body);
     res.send('Hello World');
 });
 
