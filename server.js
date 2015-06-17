@@ -2,6 +2,7 @@
 //  OpenShift sample Node application
 var express = require('express');
 var fs      = require('fs');
+var url     = require('url');
 
 
 /**
@@ -106,9 +107,9 @@ var SampleApp = function() {
         };
 
         self.routes['/test'] = function(req, res) {
-            console.log('in test');
-            console.log(req);
-            console.log(res);
+            var body = req.body;
+            var method = req.method;
+            console.log(body + " " + method);
             res.setHeader('Content-Type', 'text/html');
             res.send('<b> Hello World from Server </b>');
         };
