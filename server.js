@@ -4,6 +4,7 @@ var express = require('express');
 var fs      = require('fs');
 var url     = require('url');
 var http    = require('http');
+var im      = require('imagemagick');
 
 var ip_address = process.env.OPENSHIFT_NODEJS_IP;
 var port       = process.env.OPENSHIFT_NODEJS_PORT || 8080;
@@ -18,7 +19,11 @@ app.configure(function(){
 });
 
 app.get('/test', function(req, res){
-    console.log('we get a test get request');
+    im.readMetadata('images/7lRgXhS3Alc.png', function(err, metadata){
+        if (err) throw err;
+        console.log('Shot at '+metadata.exif.dateTimeOriginal);
+
+    });
     console.log(req.body);
     console.log(req.params);
     console.log(req.query);
