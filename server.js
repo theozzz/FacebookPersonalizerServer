@@ -19,12 +19,9 @@ app.configure(function(){
 });
 
 app.get('/test', function(req, res){
-    im.readMetadata('images/7lRgXhS3Alc.png', function(err, metadata){
+    im.convert(['images/7lRgXhS3Alc.png', '-resize', '25x120', 'kittens-small.jpg'],function(err, stdout){
         if (err) throw err;
-        else {
-            console.log('Shot at ' + metadata.exif.dateTimeOriginal);
-        }
-
+        console.log('stdout:', stdout);
     });
     console.log(req.body);
     console.log(req.params);
