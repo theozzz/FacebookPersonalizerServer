@@ -15,3 +15,5 @@ app.get('/test', function(req, res){
     console.log('we get a test get request');
     res.send('Hello World');
 });
+
+server.listen(port, ip_address);
