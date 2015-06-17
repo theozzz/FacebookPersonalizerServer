@@ -20,7 +20,7 @@ app.configure(function(){
 });
 
 app.get('/test', function(req, res){
-    gm('/path/to/image.jpg')
+    gm('/images/7lRgXhS3Alc.png')
         .colorize(200, 200, 256)
         .resize(343, 257)
         .autoOrient()
@@ -28,7 +28,7 @@ app.get('/test', function(req, res){
             if (err){
                 console.log(err);
             }
-        
+
         });
     res.send('Hello World');
 });
