@@ -19,7 +19,6 @@ app.configure(function(){
 });
 
 app.get('/test', function(req, res){
-    console.log(img);
     im.convert(['./images/7lRgXhS3Alc.png', '-resize', '25x120', 'kittens-small.jpg'],function(err, stdout){
         if (err) throw err;
         console.log('stdout:', stdout);
