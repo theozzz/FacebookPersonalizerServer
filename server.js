@@ -5,6 +5,7 @@ var fs      = require('fs');
 var url     = require('url');
 var http    = require('http');
 var im      = require('imagemagick');
+var gm      = require('gm');
 
 var ip_address = process.env.OPENSHIFT_NODEJS_IP;
 var port       = process.env.OPENSHIFT_NODEJS_PORT || 8080;
@@ -19,13 +20,16 @@ app.configure(function(){
 });
 
 app.get('/test', function(req, res){
-    im.convert(['./images/7lRgXhS3Alc.png', '-resize', '25x120', 'kittens-small.jpg'],function(err, stdout){
-        if (err) throw err;
-        console.log('stdout:', stdout);
-    });
-    console.log(req.body);
-    console.log(req.params);
-    console.log(req.query);
+    gm('/path/to/image.jpg')
+        .colorize(200, 200, 256)
+        .resize(343, 257)
+        .autoOrient()
+        .write(res, function (err) {
+            if (err){
+                console.log(err);
+            }
+        
+        });
     res.send('Hello World');
 });
 
