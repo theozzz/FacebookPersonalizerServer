@@ -20,17 +20,16 @@ app.configure(function(){
 });
 
 app.get('/test', function(req, res){
-    gm('./images/7lRgXhS3Alc.png')
-        .colorize(200, 200, 256)
-        .resize(343, 257)
-        .autoOrient()
-        .write(res, function (err) {
-            if (err){
-                console.log(err);
-            }
-
+    im.convert(['./images/7lRgXhS3Alc.png','-fill', 'red', '-tint', '100%', 'kittens-small.jpg'],
+        function(err, stdout){
+            if (err) throw err;
+            console.log('stdout:', stdout);
         });
     res.send('Hello World');
 });
 
-server.listen(port, ip_address);
+server.listen(port, ip_address,function(){
+    console.log('server listening');
+    var img="new_image.png";
+
+});
