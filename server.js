@@ -20,12 +20,14 @@ app.configure(function(){
 });
 
 app.get('/test', function(req, res){
-    im.convert(['./images/7lRgXhS3Alc.png','-fill', 'red', '-tint', '100%', 'kittens-small.jpg'],
+    im.convert(['./images/origin-sprite.png','-fill', 'red', '-tint', '100%', 'kittens-small.png'],
         function(err, stdout){
             if (err) throw err;
             console.log('stdout:', stdout);
         });
-    res.send('Hello World');
+    var img = fs.readFileSync('./kittens-small.png');
+    res.writeHead(200, {'Content-Type' : 'image/png' });
+    res.end(img, 'binary');
 });
 
 server.listen(port, ip_address,function(){
