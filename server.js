@@ -72,7 +72,7 @@ function convertIconsToB64(collection, callback) {
             if (err) {
                 callback(err);
             }
-            var base64Buffer = data.toString('base64');
+            var base64Buffer = new Buffer(data).toString('base64');
             console.log(base64Buffer);
             if (++isDone == collection.length) {
                 callback();
