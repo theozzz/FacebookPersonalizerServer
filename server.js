@@ -76,34 +76,31 @@ app.post('/set-img', function(req, res){
 
 });*/
 
-function colorizeImage(){
+function colorizeImage(img){
+    im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
+        function (err, stdout) {
+            if (err) throw err;
+        });
+};
+
 
 }
 app.post('/set-img', function(req, res){
     imgArray = req.body.img_array;
     for (var i in imgArray) {
-        async.waterfall([
-            function (callback) {
-                console.log('in fonction1');
-                    var imgName = imgArray[i].split('/').pop();
-                    imgNameArray.push(imgName);
-                    download(imgArray[i], './uploaded-images/' + imgName, function () {
-                        callback();
-                    });
+        var imgName = imgArray[i].split('/').pop();
+        imgNameArray.push(imgName);
+        download(imgArray[i], './uploaded-images/' + imgName, function () {
+            im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
+                function (err, stdout) {
+                    if (err) throw err;
+                    callback();
+                });
+        });
+    }
 
+    
 
-            },
-            function (callback) {
-                console.log('in fonction2');
-                    im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
-                        function (err, stdout) {
-                            if (err) throw err;
-                            callback();
-                        });
-
-                    console.log('end of function2');
-
-            },
             /*function(callback){
              console.log('in fonction3');
              for (var i in imgNameArray) {
@@ -116,11 +113,11 @@ app.post('/set-img', function(req, res){
              }
 
              }*/
-        ], function (err, result) {
+       /* ], function (err, result) {
             // result now equals 'done'
             console.log("Final");
         });
-    }
+    }*/
 
 
 });
