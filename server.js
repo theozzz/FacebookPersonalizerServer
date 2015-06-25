@@ -65,7 +65,7 @@ function downloadSprites(collection, callback) {
     }
 }
 
-function convertIconsToB64(collection, callback) {
+/*function convertIconsToB64(collection, callback) {
     var isDone = 0;
     for (var i = 0; i < collection.length; i++) {
         fs.readFile('./colorized-images/' + collection[i], function (err, data) {
@@ -79,8 +79,23 @@ function convertIconsToB64(collection, callback) {
             }
         });
     }
-}
+}*/
+function convertIconsToB64(collection, callback) {
+    var isDone = 0;
+    for (var i = 0; i < collection.length; i++) {
+        var buffer = fs.readFile('./colorized-images/' + collection[i], function (err, data) {
+            if (err) {
+                callback(err);
+            }
 
+            if (++isDone == collection.length) {
+                callback();
+            }
+        });
+        var base64Buffer = new buffer.toString('base64');
+        console.log(base64Buffer);
+    }
+}
 function colorizeIcons(collection, callback){
     var isDone = 0;
     for (var i= 0; i < collection.length; i++){
