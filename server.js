@@ -46,14 +46,10 @@ app.post('/colorize-icons', function(req, res){
             function(err, stdout){
                 if (err) throw err;
             });
-        fs.readFile('./colorized-images/Tk4r3ASHe9l.png', function(err, original_data){
-            var base64Image = new Buffer(original_data, 'binary').toString('base64');
-            res.writeHead(200, {'Content-Type': 'text/plain'});
-            res.end(base64Image);
-        });
+        var imgBuffer = fs.readFileSync('./colorized-images/Tk4r3ASHe9l.png');
+        var base64Buffer = imgBuffer.toString('base64');
+        console.log(base64Buffer);
         //fs.writeFile("./colorized-images/Tk4r3ASHe9l.png", new Buffer(request.body.photo, "base64").toString(), function(err) {});
-
-    }
 
 });
 
