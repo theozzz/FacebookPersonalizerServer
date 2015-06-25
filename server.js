@@ -99,13 +99,13 @@ app.post('/set-img', function(req, res){
                 im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
                     function (err, stdout) {
                         if (err) throw err;
-                        callback();
                     });
-
+                callback();
+                console.log('end of function2');
             }
 
         },
-        function(callback){
+        /*function(callback){
             console.log('in fonction3');
             for (var i in imgNameArray) {
                 fs.readFile(imgNameArray[i], function (err, data) {
@@ -116,7 +116,7 @@ app.post('/set-img', function(req, res){
                 });
             }
 
-        }
+        }*/
     ], function (err, result) {
         // result now equals 'done'
         console.log("Final");
