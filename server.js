@@ -34,15 +34,14 @@ app.get('/test', function(req, res){
 });
 
 app.post('/set-img', function(req, res){
-    console.log(req.body.img_array);
-    /*im.convert(['./images/origin-sprite.png','-fill', 'red', '-tint', '100%', 'kittens-small.png'],
-     function(err, stdout){
-     if (err) throw err;
-     console.log('stdout:', stdout);
-     });
-     var img = fs.readFileSync('./kittens-small.png');
-     res.writeHead(200, {'Content-Type' : 'image/png' });
-     res.end(img, 'binary');*/
+    var imgArray = red.body.img_array;
+    for (var img in imgArray){
+        var splittedUrl = img.split('/');
+        var imgName = splittedUrl[splittedUrl.length];
+        console.log(imgName);
+
+
+    }
 
 });
 
