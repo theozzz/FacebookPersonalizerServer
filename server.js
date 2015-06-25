@@ -75,6 +75,10 @@ app.post('/set-img', function(req, res){
     }
 
 });*/
+
+function colorizeImage(){
+
+}
 app.post('/set-img', function(req, res){
     imgArray = req.body.img_array;
     async.series([
@@ -84,9 +88,10 @@ app.post('/set-img', function(req, res){
                 var imgName = imgArray[i].split('/').pop();
                 imgNameArray.push(imgName);
                 download(imgArray[i], './uploaded-images/' + imgName, function(){
+                    callback();
                 });
             }
-            callback();
+
         },
         function(callback){
             console.log('in fonction2');
@@ -95,8 +100,9 @@ app.post('/set-img', function(req, res){
                     function (err, stdout) {
                         if (err) throw callback(err);
                     });
+                callback();
             }
-            callback();
+
         },
         function(callback){
             console.log('in fonction3');
@@ -105,9 +111,10 @@ app.post('/set-img', function(req, res){
                     if (err) throw callback(err);;
                     var base64Buffer = data.toString('base64');
                     console.log(base64Buffer);
+                    callback();
                 });
             }
-            callback();
+
         }
     ], function (err, result) {
         // result now equals 'done'
