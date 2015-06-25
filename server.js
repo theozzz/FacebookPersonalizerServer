@@ -66,6 +66,13 @@ app.post('/set-img', function(req, res){
         download(imgArray[i], './uploaded-images/' + imgName, function(){
         });
     }
+    for (var i in imgNameArray) {
+        im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
+            function (err, stdout) {
+                if (err) throw err;
+            });
+    }
+
 });
 
 var download = function(uri, filename, callback){
@@ -79,20 +86,7 @@ var download = function(uri, filename, callback){
 
 server.listen(port, ip_address,function(){
     console.log('server listening');
-    var img="new_image.png";
-    download('https://fbstatic-a.akamaihd.net/rsrc.php/v2/yu/r/PB0WpbyXBBt.png', 'google.png', function(){
-        console.log('done');
-    });
-    for (var i in imgNameArray) {
-        im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
-            function (err, stdout) {
-                if (err) throw err;
-            });
-    }
-    im.convert(['./images/origin-sprite.png','-fill', 'red', '-tint', '100%', 'kittens-small.png'],
-        function(err, stdout){
-            if (err) throw err;
-            console.log('stdout:', stdout);
-        });
+
+
 
 });
