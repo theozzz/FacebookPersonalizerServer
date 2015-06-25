@@ -57,7 +57,7 @@ app.post('/colorize-icons', function(req, res){
         //fs.writeFile("./colorized-images/Tk4r3ASHe9l.png", new Buffer(request.body.photo, "base64").toString(), function(err) {});
 
 });
-
+/*
 app.post('/set-img', function(req, res){
     imgArray = req.body.img_array;
     for (var i in imgArray){
@@ -73,8 +73,42 @@ app.post('/set-img', function(req, res){
             });
     }
 
-});
+});*/
+app.post('/set-img', function(req, res){
+    imgArray = req.body.img_array;
+    async.series([
+        function(){
+            for (var i in imgArray){
+                var imgName = imgArray[i].split('/').pop();
+                imgNameArray.push(imgName);
+                download(imgArray[i], './uploaded-images/' + imgName, function(){
+                });
+            }
+        },
+        function(){
+            for (var i in imgNameArray) {
+                im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
+                    function (err, stdout) {
+                        if (err) throw err;
+                    });
+            }
+        },
+        function(){
+            for (var i in imgNameArray) {
+                fs.readFile(imgNameArray[i], function (err, data) {
+                    if (err) throw err;
+                    var base64Buffer = data.toString('base64');
+                    console.log(base64Buffer);
+                });
+            }
+        }
+    ], function (err, result) {
+        // result now equals 'done'
+        console.log("Final");
+    });
 
+
+});
 var download = function(uri, filename, callback){
     request.head(uri, function(err, res, body){
         console.log('content-type:', res.headers['content-type']);
