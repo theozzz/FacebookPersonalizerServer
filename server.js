@@ -65,19 +65,20 @@ function downloadSprites(collection, callback) {
     }
 }
 
-function convertIconsToB64(collection, callback){
+function convertIconsToB64(collection, callback) {
     var isDone = 0;
-    for (var i= 0; i < collection.length; i++){
-        fs.readFile('./colorized-images/' + collection[i], function(err, data){
-            if (err){
+    for (var i = 0; i < collection.length; i++) {
+        fs.readFile('./colorized-images/' + collection[i], function (err, data) {
+            if (err) {
                 callback(err);
             }
             var base64Buffer = data.toString('base64');
             console.log(base64Buffer);
-            if(++isDone == collection.length){
+            if (++isDone == collection.length) {
                 callback();
             }
-    });
+        });
+    }
 }
 
 function colorizeIcons(collection, callback){
