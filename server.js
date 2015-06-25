@@ -47,6 +47,7 @@ app.post('/colorize-icons', function(req, res){
                 if (err) throw err;
             });
         setTimeout(test, 100);
+        if (fs.existsSync('.'+req.pathname))
         var imgBuffer = fs.readFileSync(imgNameArray[i]);
         var base64Buffer = imgBuffer.toString('base64');
         console.log(base64Buffer);
