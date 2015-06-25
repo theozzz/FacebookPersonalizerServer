@@ -76,15 +76,8 @@ app.post('/set-img', function(req, res){
 
 });*/
 
-function colorizeImage(img){
-    im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
-        function (err, stdout) {
-            if (err) throw err;
-        });
-};
 
 
-}
 app.post('/set-img', function(req, res){
     imgArray = req.body.img_array;
     for (var i in imgArray) {
@@ -99,7 +92,7 @@ app.post('/set-img', function(req, res){
         });
     }
 
-    
+
 
             /*function(callback){
              console.log('in fonction3');
