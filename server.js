@@ -34,7 +34,7 @@ app.get('/test', function(req, res){
 });
 
 app.post('/set-img', function(req, res){
-    var imgArray = red.body.img_array;
+    var imgArray = req.body.img_array;
     for (var img in imgArray){
         var splittedUrl = img.split('/');
         var imgName = splittedUrl[splittedUrl.length];
