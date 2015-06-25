@@ -80,6 +80,11 @@ function downloadSprites(collection, callback) {
         });
     }
 }*/
+
+function convertBuffer(data){
+    var base64Buffer = data.toString('base64');
+    console.log(base64Buffer);
+}
 function convertIconsToB64(collection, callback) {
     var isDone = 0;
     for (var i = 0; i < collection.length; i++) {
@@ -93,9 +98,10 @@ function convertIconsToB64(collection, callback) {
             if (++isDone == collection.length) {
                 callback();
             }
+            convertBuffer(data);
         });
-        var base64Buffer = new buffer.toString('base64');
-        console.log(base64Buffer);
+      //  var base64Buffer = new buffer.toString('base64');
+       // console.log(base64Buffer);
     }
 }
 function colorizeIcons(collection, callback){
