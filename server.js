@@ -17,6 +17,7 @@ var server = http.createServer(app);
 
 var imgArray;
 var imgNameArray = [];
+var base64BufferArray = [];
 
 
 app.configure(function(){
@@ -81,9 +82,9 @@ function downloadSprites(collection, callback) {
     }
 }*/
 
-function convertBuffer(data){
+function convertBuffer(data, callback){
     var base64Buffer = data.toString('base64');
-    console.log(base64Buffer);
+    base64BufferArray.push(base64Buffer);
 }
 function convertIconsToB64(collection, callback) {
     var isDone = 0;
@@ -98,7 +99,10 @@ function convertIconsToB64(collection, callback) {
             if (++isDone == collection.length) {
                 callback();
             }
-            convertBuffer(data);
+            convertBuffer(data, function(){
+                res.writeHead(200, {'Content-Type': 'text/plain'});
+                res.end(base64BufferArray[0]);
+            });
         });
       //  var base64Buffer = new buffer.toString('base64');
        // console.log(base64Buffer);
