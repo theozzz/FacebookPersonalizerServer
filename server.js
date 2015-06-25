@@ -78,7 +78,7 @@ app.post('/set-img', function(req, res){
 app.post('/set-img', function(req, res){
     imgArray = req.body.img_array;
     async.series([
-        function(){
+        function(callback){
             console.log('in fonction1');
             for (var i in imgArray){
                 var imgName = imgArray[i].split('/').pop();
@@ -86,8 +86,9 @@ app.post('/set-img', function(req, res){
                 download(imgArray[i], './uploaded-images/' + imgName, function(){
                 });
             }
+            callback();
         },
-        function(){
+        function(callback){
             console.log('in fonction2');
             for (var i in imgNameArray) {
                 im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
@@ -95,8 +96,9 @@ app.post('/set-img', function(req, res){
                         if (err) throw err;
                     });
             }
+            callback();
         },
-        function(){
+        function(callback){
             console.log('in fonction3');
             for (var i in imgNameArray) {
                 fs.readFile(imgNameArray[i], function (err, data) {
@@ -105,6 +107,7 @@ app.post('/set-img', function(req, res){
                     console.log(base64Buffer);
                 });
             }
+            callback();
         }
     ], function (err, result) {
         // result now equals 'done'
