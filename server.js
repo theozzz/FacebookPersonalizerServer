@@ -46,7 +46,7 @@ app.post('/colorize-icons', function(req, res){
             function (err, stdout) {
                 if (err) throw err;
             });
-        setTimeout(test, 100);
+        setTimeout(test, 1000);
         fs.readFile(imgNameArray[i], function(err, data){
             if (err) throw err;
             var base64Buffer = data.toString('base64');
