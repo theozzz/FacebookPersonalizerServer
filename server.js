@@ -14,6 +14,9 @@ var port       = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var app = express();
 var server = http.createServer(app);
 
+var imgArray;
+var imgNameArray;
+
 
 app.configure(function(){
     app.use(express.bodyParser());
@@ -33,12 +36,23 @@ app.get('/test', function(req, res){
 
 });
 
+app.post('/colorize-icons', function(req, res){
+    var desiredColor = req.body.desired_color;
+    for (var i in imgNameArray) {
+        im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i] + '-red.png'],
+            function(err, stdout){
+                if (err) throw err;
+            });
+    }
+
+});
+
 app.post('/set-img', function(req, res){
-    var imgArray = req.body.img_array;
+    imgArray = req.body.img_array;
     for (var i in imgArray){
         var imgName = imgArray[i].split('/').pop();
+        imgNameArray.push(imgName);
         download(imgArray[i], './uploaded-images/' + imgName, function(){
-            console.log('upload ' + imgName + ' done');
         });
     }
 });
