@@ -82,7 +82,7 @@ app.post('/set-img', function(req, res){
     imgArray = req.body.img_array;
     for (var i in imgArray) {
         var imgName = imgArray[i].split('/').pop();
-        imgNameArray.push(imgName);
+        imgNameArray[i] = imgName;
         download(imgArray[i], './uploaded-images/' + imgName, function () {
             im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
                 function (err, stdout) {
