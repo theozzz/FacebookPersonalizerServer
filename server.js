@@ -85,6 +85,7 @@ function convertIconsToB64(collection, callback) {
     for (var i = 0; i < collection.length; i++) {
         console.log(collection[i]);
         var buffer = fs.readFile('./colorized-images/' + collection[i], function (err, data) {
+            console.log(data);
             if (err) {
                 callback(err);
             }
