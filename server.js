@@ -82,7 +82,7 @@ function colorizeImage(){
 app.post('/set-img', function(req, res){
     imgArray = req.body.img_array;
     for (var i in imgArray) {
-        async.series([
+        async.waterfall([
             function (callback) {
                 console.log('in fonction1');
                     var imgName = imgArray[i].split('/').pop();
