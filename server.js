@@ -52,8 +52,7 @@ app.configure(function(){
 function colorizeIcons(callback){
     var isDone = 0;
     console.log('in colorize-icons');
-    for (var i= 0; i < imgNameArray; i++){
-        console.log(i);
+    for (var i= 0; i < imgNameArray.length; i++){
         im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', './colorized-images/' + imgNameArray[i]],
             function (err) {
                 if (err) {
@@ -72,8 +71,7 @@ app.post('/colorize-icons', function(req, res){
     var desiredColor = req.body.desired_color;
     colorizeIcons(function(err){
         console.log('done');
-    })
-
+    });
 
 });
 
