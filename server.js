@@ -46,7 +46,7 @@ app.post('/colorize-icons', function(req, res){
             function (err, stdout) {
                 if (err) throw err;
             });
-        var imgBuffer = fs.readFileSync('./colorized-images/Tk4r3ASHe9l.png');
+        var imgBuffer = fs.readFileSync('Tk4r3ASHe9l.png');
         var base64Buffer = imgBuffer.toString('base64');
         console.log(base64Buffer);
         //fs.writeFile("./colorized-images/Tk4r3ASHe9l.png", new Buffer(request.body.photo, "base64").toString(), function(err) {});
