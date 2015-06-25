@@ -7,6 +7,7 @@ var url     = require('url');
 var http    = require('http');
 var im      = require('imagemagick');
 var gm      = require('gm');
+var async   = require('async');
 
 var ip_address = process.env.OPENSHIFT_NODEJS_IP;
 var port       = process.env.OPENSHIFT_NODEJS_PORT || 8080;
