@@ -35,14 +35,16 @@ app.get('/test', function(req, res){
 
 app.post('/set-img', function(req, res){
     var imgArray = req.body.img_array;
-    for (var img in imgArray){
-        console.log(img);
-        var imgName = img.split('/').pop();
+    imgArray.forEach(function(index){
+        console.log(this);
+    });
+       // console.log(img);
+       //s var imgName = img.split('/').pop();
         //var imgName = splittedUrl[splittedUrl.length - 1];
-        console.log(imgName);
+        //console.log(imgName);
 
 
-    }
+   // }
 
 });
 
