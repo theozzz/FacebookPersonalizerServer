@@ -35,6 +35,9 @@ app.get('/test', function(req, res){
     res.end(img, 'binary');*/
 
 });
+function test(){
+    console.log('hello world');
+}
 
 app.post('/colorize-icons', function(req, res){
     var desiredColor = req.body.desired_color;
@@ -43,9 +46,10 @@ app.post('/colorize-icons', function(req, res){
             function(err, stdout){
                 if (err) throw err;
             });
-        var imageData = fs.readFileSync('colorized-images/' + imgNameArray[i]);
-        var base64Image = imageData.toString('base64');
-        res.end(base64Image, 'plain/text');
+        setTimeout(test, 1000);
+        imgData = fs.readFile('./colorized-images/' + imgNameArray[i]);
+        res.writeHead(200, {'Content-Type': 'image/png'});
+        res.end(imgData);
     }
 
 });
