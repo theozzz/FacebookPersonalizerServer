@@ -116,10 +116,11 @@ app.post('/colorize-icons', function(req, res){
     var desiredColor = req.body.desired_color;
     colorizeIcons(imgNameArray, function(err){
         console.log('Icons colorized');
+        convertIconsToB64(imgNameArray, function(err){
+            console.log('Icons converted to B64');
+        });
     });
-    convertIconsToB64(imgNameArray, function(err){
-        console.log('Icons converted to B64');
-    });
+
 
 });
 
