@@ -42,11 +42,12 @@ function test(){
 app.post('/colorize-icons', function(req, res){
     var desiredColor = req.body.desired_color;
     for (var i in imgNameArray) {
-        im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', './colorized-images/' + imgNameArray[i]],
+        im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
             function (err, stdout) {
                 if (err) throw err;
             });
-        var imgBuffer = fs.readFileSync('Tk4r3ASHe9l.png');
+        setTimeout(test, 100);
+        var imgBuffer = fs.readFileSync(imgNameArray[i]);
         var base64Buffer = imgBuffer.toString('base64');
         console.log(base64Buffer);
         //fs.writeFile("./colorized-images/Tk4r3ASHe9l.png", new Buffer(request.body.photo, "base64").toString(), function(err) {});
