@@ -37,7 +37,7 @@ app.post('/set-img', function(req, res){
     var imgArray = req.body.img_array;
     for (var i in imgArray){
         var imgName = imgArray[i].split('/').pop();
-        download(imgArray, './uploaded-images/' + imgName, function(){
+        download(imgArray[i], './uploaded-images/' + imgName, function(){
             console.log('upload ' + imgName + ' done');
         });
     }
