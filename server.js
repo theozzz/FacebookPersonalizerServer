@@ -24,57 +24,55 @@ app.configure(function(){
     app.use(app.router);
 });
 
-app.get('/test', function(req, res){
-    console.log(req.query);
-    /*im.convert(['./images/origin-sprite.png','-fill', 'red', '-tint', '100%', 'kittens-small.png'],
-        function(err, stdout){
-            if (err) throw err;
-            console.log('stdout:', stdout);
-        });
-    var img = fs.readFileSync('./kittens-small.png');
-    res.writeHead(200, {'Content-Type' : 'image/png' });
-    res.end(img, 'binary');*/
+/******* PASTE **************/
+/*fs.readFile(imgNameArray[i], function(err, data){
+    if (err) throw err;
+    var base64Buffer = data.toString('base64');
+    console.log(base64Buffer);
+});*/
+/*
+ app.post('/set-img', function(req, res){
+ imgArray = req.body.img_array;
+ for (var i in imgArray){
+ var imgName = imgArray[i].split('/').pop();
+ imgNameArray.push(imgName);
+ download(imgArray[i], './uploaded-images/' + imgName, function(){
+ });
+ }
+ for (var i in imgNameArray) {
+ im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
+ function (err, stdout) {
+ if (err) throw err;
+ });
+ }
 
-});
-function test(){
-    console.log('hello world');
+ });*/
+
+
+function colorizeIcons(callback){
+    var isDone = 0;
+    for (var i= 0; i < imgNameArray; i++){
+        im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
+            function (err) {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                if(++isDone == collection.length()){
+                    callback();
+                }
+            });
+    }
 }
 
 app.post('/colorize-icons', function(req, res){
     var desiredColor = req.body.desired_color;
-    for (var i in imgNameArray) {
-        /*im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
-            function (err, stdout) {
-                if (err) throw err;
-            });*/
-        setTimeout(test, 1000);
-        fs.readFile(imgNameArray[i], function(err, data){
-            if (err) throw err;
-            var base64Buffer = data.toString('base64');
-            console.log(base64Buffer);
-        });
+    colorizeIcons(function(err){
+        console.log('done');
+    })
 
-        }
-        //fs.writeFile("./colorized-images/Tk4r3ASHe9l.png", new Buffer(request.body.photo, "base64").toString(), function(err) {});
 
 });
-/*
-app.post('/set-img', function(req, res){
-    imgArray = req.body.img_array;
-    for (var i in imgArray){
-        var imgName = imgArray[i].split('/').pop();
-        imgNameArray.push(imgName);
-        download(imgArray[i], './uploaded-images/' + imgName, function(){
-        });
-    }
-    for (var i in imgNameArray) {
-        im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
-            function (err, stdout) {
-                if (err) throw err;
-            });
-    }
-
-});*/
 
 
 
@@ -84,10 +82,7 @@ app.post('/set-img', function(req, res){
         var imgName = imgArray[i].split('/').pop();
         imgNameArray[i] = imgName;
         download(imgArray[i], './uploaded-images/' + imgName, function () {
-            im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
-                function (err, stdout) {
-                    if (err) throw err;
-                });
+
         });
     }
 
