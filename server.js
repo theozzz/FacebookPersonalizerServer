@@ -39,10 +39,13 @@ app.get('/test', function(req, res){
 app.post('/colorize-icons', function(req, res){
     var desiredColor = req.body.desired_color;
     for (var i in imgNameArray) {
-        im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i] + '-red.png'],
+        im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', './colorized-images/' + imgNameArray[i] + '-red.png'],
             function(err, stdout){
                 if (err) throw err;
             });
+        var imageData = fs.readFileSync('./colorized-images/' + imgNameArray[i] + '-red.png');
+        var base64Image = imageData.toString('base64');
+        res.end(base64Image, 'plain/text');
     }
 
 });
