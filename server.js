@@ -15,7 +15,7 @@ var app = express();
 var server = http.createServer(app);
 
 var imgArray;
-var imgNameArray;
+var imgNameArray = [];
 
 
 app.configure(function(){
