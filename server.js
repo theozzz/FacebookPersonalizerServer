@@ -79,6 +79,7 @@ app.post('/set-img', function(req, res){
     imgArray = req.body.img_array;
     async.series([
         function(){
+            console.log('in fonction1');
             for (var i in imgArray){
                 var imgName = imgArray[i].split('/').pop();
                 imgNameArray.push(imgName);
@@ -87,6 +88,7 @@ app.post('/set-img', function(req, res){
             }
         },
         function(){
+            console.log('in fonction2');
             for (var i in imgNameArray) {
                 im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
                     function (err, stdout) {
@@ -95,6 +97,7 @@ app.post('/set-img', function(req, res){
             }
         },
         function(){
+            console.log('in fonction3');
             for (var i in imgNameArray) {
                 fs.readFile(imgNameArray[i], function (err, data) {
                     if (err) throw err;
