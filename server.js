@@ -33,7 +33,7 @@ app.get('/test', function(req, res){
 
 });
 
-app.get('/set-img', function(req, res){
+app.post('/set-img', function(req, res){
     console.log(req.data);
     /*im.convert(['./images/origin-sprite.png','-fill', 'red', '-tint', '100%', 'kittens-small.png'],
      function(err, stdout){
