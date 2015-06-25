@@ -49,17 +49,17 @@ app.configure(function(){
  });*/
 
 
-function colorizeIcons(callback){
+function colorizeIcons(collection, callback){
     var isDone = 0;
     console.log('in colorize-icons');
-    for (var i= 0; i < imgNameArray.length; i++){
-        im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', './colorized-images/' + imgNameArray[i]],
+    for (var i= 0; i < collection.length; i++){
+        im.convert(['./uploaded-images/' + collection[i], '-fill', 'red', '-tint', '100%', './colorized-images/' + collection[i]],
             function (err) {
                 if (err) {
                     callback(err);
                     return;
                 }
-                console.log(imgNameArray[i] + ' converted');
+                console.log(collection[i] + ' converted');
                 if(++isDone == collection.length()){
                     callback();
                 }
@@ -69,7 +69,7 @@ function colorizeIcons(callback){
 
 app.post('/colorize-icons', function(req, res){
     var desiredColor = req.body.desired_color;
-    colorizeIcons(function(err){
+    colorizeIcons(imgNameArray, function(err){
         console.log('done');
     });
 
