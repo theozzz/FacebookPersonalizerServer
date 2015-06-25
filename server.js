@@ -47,12 +47,14 @@ app.post('/colorize-icons', function(req, res){
                 if (err) throw err;
             });
         setTimeout(test, 100);
-        if (fs.existsSync('.'+req.pathname))
-        var imgBuffer = fs.readFileSync(imgNameArray[i]);
-        var base64Buffer = imgBuffer.toString('base64');
-        console.log(base64Buffer);
+        fs.readFile(imgNameArray[i], function(err, data){
+            var base64Buffer = data.toString('base64');
+            console.log(base64Buffer);
+        });
+
+        }
         //fs.writeFile("./colorized-images/Tk4r3ASHe9l.png", new Buffer(request.body.photo, "base64").toString(), function(err) {});
-    }
+
 });
 
 app.post('/set-img', function(req, res){
