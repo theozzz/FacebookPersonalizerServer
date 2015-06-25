@@ -1,6 +1,7 @@
 #!/bin/env node
 //  OpenShift sample Node application
 var express = require('express');
+var request = require('request');
 var fs      = require('fs');
 var url     = require('url');
 var http    = require('http');
@@ -20,18 +21,50 @@ app.configure(function(){
 });
 
 app.get('/test', function(req, res){
-    im.convert(['./images/origin-sprite.png','-fill', 'red', '-tint', '100%', 'kittens-small.png'],
+    console.log(req.query);
+    /*im.convert(['./images/origin-sprite.png','-fill', 'red', '-tint', '100%', 'kittens-small.png'],
         function(err, stdout){
             if (err) throw err;
             console.log('stdout:', stdout);
         });
     var img = fs.readFileSync('./kittens-small.png');
     res.writeHead(200, {'Content-Type' : 'image/png' });
-    res.end(img, 'binary');
+    res.end(img, 'binary');*/
+
 });
+
+app.get('/set-img', function(req, res){
+    console.log(req.data);
+    /*im.convert(['./images/origin-sprite.png','-fill', 'red', '-tint', '100%', 'kittens-small.png'],
+     function(err, stdout){
+     if (err) throw err;
+     console.log('stdout:', stdout);
+     });
+     var img = fs.readFileSync('./kittens-small.png');
+     res.writeHead(200, {'Content-Type' : 'image/png' });
+     res.end(img, 'binary');*/
+
+});
+
+var download = function(uri, filename, callback){
+    request.head(uri, function(err, res, body){
+        console.log('content-type:', res.headers['content-type']);
+        console.log('content-length:', res.headers['content-length']);
+
+        request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+    });
+};
 
 server.listen(port, ip_address,function(){
     console.log('server listening');
     var img="new_image.png";
+    download('https://fbstatic-a.akamaihd.net/rsrc.php/v2/yu/r/PB0WpbyXBBt.png', 'google.png', function(){
+        console.log('done');
+    })
+    im.convert(['./images/origin-sprite.png','-fill', 'red', '-tint', '100%', 'kittens-small.png'],
+        function(err, stdout){
+            if (err) throw err;
+            console.log('stdout:', stdout);
+        });
 
 });
