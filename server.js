@@ -98,7 +98,7 @@ app.post('/set-img', function(req, res){
             for (var i in imgNameArray) {
                 im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
                     function (err, stdout) {
-                        if (err) throw callback(err);
+                        if (err) throw err;
                     });
                 callback();
             }
@@ -108,7 +108,7 @@ app.post('/set-img', function(req, res){
             console.log('in fonction3');
             for (var i in imgNameArray) {
                 fs.readFile(imgNameArray[i], function (err, data) {
-                    if (err) throw callback(err);;
+                    if (err) throw err;
                     var base64Buffer = data.toString('base64');
                     console.log(base64Buffer);
                     callback();
