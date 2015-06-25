@@ -87,7 +87,6 @@ app.post('/set-img', function(req, res){
             im.convert(['./uploaded-images/' + imgNameArray[i], '-fill', 'red', '-tint', '100%', imgNameArray[i]],
                 function (err, stdout) {
                     if (err) throw err;
-                    callback();
                 });
         });
     }
