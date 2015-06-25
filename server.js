@@ -60,7 +60,7 @@ function colorizeIcons(collection, callback){
                     return;
                 }
                 console.log(collection[i] + ' converted');
-                if(++isDone == collection.length()){
+                if(++isDone == collection.length){
                     callback();
                 }
             });
