@@ -48,10 +48,25 @@ app.configure(function(){
 
  });*/
 
+function downloadSprites(collection, callback) {
+    var isDone = 0;
+    for (var i= 0; i < collection.length; i++) {
+        var imgName = collection[i].split('/').pop();
+        imgNameArray[i] = imgName;
+        download(collection[i], './uploaded-images/' + imgName, function(err){
+            if (err) {
+                callback(err);
+                return;
+            }
+            if(++isDone == collection.length) {
+                callback();
+            }
+        });
+    }
+}
 
 function colorizeIcons(collection, callback){
     var isDone = 0;
-    console.log('in colorize-icons');
     for (var i= 0; i < collection.length; i++){
         im.convert(['./uploaded-images/' + collection[i], '-fill', 'red', '-tint', '100%', './colorized-images/' + collection[i]],
             function (err) {
@@ -59,7 +74,6 @@ function colorizeIcons(collection, callback){
                     callback(err);
                     return;
                 }
-                console.log(collection[i] + ' converted');
                 if(++isDone == collection.length){
                     callback();
                 }
@@ -70,45 +84,19 @@ function colorizeIcons(collection, callback){
 app.post('/colorize-icons', function(req, res){
     var desiredColor = req.body.desired_color;
     colorizeIcons(imgNameArray, function(err){
-        console.log('done');
+        console.log('Icons colorized');
     });
 
 });
 
-
-
 app.post('/set-img', function(req, res){
     imgArray = req.body.img_array;
-    for (var i in imgArray) {
-        var imgName = imgArray[i].split('/').pop();
-        imgNameArray[i] = imgName;
-        download(imgArray[i], './uploaded-images/' + imgName, function () {
-
-        });
-    }
-
-
-
-            /*function(callback){
-             console.log('in fonction3');
-             for (var i in imgNameArray) {
-             fs.readFile(imgNameArray[i], function (err, data) {
-             if (err) throw err;
-             var base64Buffer = data.toString('base64');
-             console.log(base64Buffer);
-             callback();
-             });
-             }
-
-             }*/
-       /* ], function (err, result) {
-            // result now equals 'done'
-            console.log("Final");
-        });
-    }*/
-
-
+    downloadSprites(imgArray, function(err){
+        console.log('Sprites downloaded');
+    });
 });
+
+
 var download = function(uri, filename, callback){
     request.head(uri, function(err, res, body){
         /*console.log('content-type:', res.headers['content-type']);
