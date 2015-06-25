@@ -83,6 +83,7 @@ function downloadSprites(collection, callback) {
 function convertIconsToB64(collection, callback) {
     var isDone = 0;
     for (var i = 0; i < collection.length; i++) {
+        console.log(collection[i]);
         var buffer = fs.readFile('./colorized-images/' + collection[i], function (err, data) {
             if (err) {
                 callback(err);
