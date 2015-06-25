@@ -46,10 +46,13 @@ app.post('/colorize-icons', function(req, res){
             function(err, stdout){
                 if (err) throw err;
             });
-        setTimeout(test, 1000);
-        imgData = fs.readFile('./colorized-images/' + imgNameArray[i]);
-        res.writeHead(200, {'Content-Type': 'image/png'});
-        res.end(imgData);
+        imgData = fs.readFile('./colorized-images/' + imgNameArray[i], function(err, data){
+            if (err) throw err;
+            else
+                res.writeHead(200, {'Content-Type': 'image/png'});
+                res.end(imgData);
+        });
+
     }
 
 });
