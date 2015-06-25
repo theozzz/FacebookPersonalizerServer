@@ -89,9 +89,7 @@ function convertBuffer(data, callback){
 function convertIconsToB64(collection, callback) {
     var isDone = 0;
     for (var i = 0; i < collection.length; i++) {
-        console.log(collection[i]);
-        var buffer = fs.readFile('./colorized-images/' + collection[i], function (err, data) {
-            console.log(data);
+        fs.readFile('./colorized-images/' + collection[i], function (err, data) {
             if (err) {
                 callback(err);
             }
@@ -99,15 +97,16 @@ function convertIconsToB64(collection, callback) {
             if (++isDone == collection.length) {
                 callback();
             }
-            convertBuffer(data, function(){
-                res.writeHead(200, {'Content-Type': 'text/plain'});
-                res.end(base64BufferArray[0]);
-            });
+            convertBuffer(data);
+
         });
       //  var base64Buffer = new buffer.toString('base64');
+       // res.writeHead(200, {'Content-Type': 'text/plain'});
+       // res.end(base64BufferArray[0]);
        // console.log(base64Buffer);
     }
 }
+
 function colorizeIcons(collection, callback){
     var isDone = 0;
     for (var i= 0; i < collection.length; i++){
@@ -130,6 +129,8 @@ app.post('/colorize-icons', function(req, res){
         console.log('Icons colorized');
         convertIconsToB64(imgNameArray, function(err){
             console.log('Icons converted to B64');
+            console.log(base64BufferArray[0]);
+
         });
     });
 
